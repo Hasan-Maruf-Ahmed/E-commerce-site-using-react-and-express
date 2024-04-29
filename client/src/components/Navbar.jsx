@@ -1,13 +1,17 @@
 import { NavLink } from "react-router-dom";
 import logo from "../assets/Logo.svg";
+import { DropdownProfile } from "./DropdownProfile";
+import { useState } from "react";
 
 export const Navbar = () => {
+  const [openProfile, setOpenProfile] = useState(false);
   return (
     <nav className="mx-20 my-1 flex justify-between items-center">
       <NavLink to="/">
         <img src={logo} alt="" width={65} />
       </NavLink>
-      <ul className="flex gap-7">
+      <i className='bx bx-menu'></i>
+      <ul className="flex gap-5">
         <li>Categories</li>
         <li>Brands</li>
         <li>Trending</li>
@@ -15,7 +19,7 @@ export const Navbar = () => {
       </ul>
       <form action="">
         <div className="flex items-center relative text-orange-500/50 focus-within:text-orange-500">
-          <i className="bx bx-search absolute ml-2"></i>
+          <i className="bx bx-search absolute ml-2 pointer-events-none"></i>
           <input
             type="text"
             name="search"
@@ -27,8 +31,9 @@ export const Navbar = () => {
         </div>
       </form>
       <i className="bx bx-heart"></i>
-      <i className="bx bx-user"></i>
       <i className="bx bx-cart"></i>
+      <i className="bx bx-user" onClick={()=>{setOpenProfile((prev)=> !prev)}}></i>
+      { openProfile && <DropdownProfile />}
     </nav>
   );
 };

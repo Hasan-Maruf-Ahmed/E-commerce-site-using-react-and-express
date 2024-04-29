@@ -9,7 +9,7 @@ export const RootLayout = () => {
       <header>
         <div className="mx-20 my-1 text-xs flex justify-between">
             <span>Biggest Smart Gadget & Smartphone Collection</span>
-            <div className="text-gray-500"><span>Call<span className="text-sky-500">+8801864180162</span></span> | <span>My Account</span></div>
+            <div className="text-gray-500"><span>Call<span className="text-sky-500">+8801864180162</span></span></div>
         </div>
         <hr />
         <Navbar />
