@@ -1,28 +1,33 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import { Header } from './components/Header'
+import { Route, RouterProvider, createBrowserRouter, createRoutesFromElements } from 'react-router-dom'
+
+//* Pages
 import { Home } from './pages/Home'
 import { Category } from './pages/Category'
 import { Brands } from './pages/Brands'
 import { Trending } from './pages/Trending'
 import { Product } from './pages/Product'
-import { Footer } from './components/Footer'
+
+//* Layouts
+import { RootLayout } from './layouts/RootLayout'
+
+
+
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <Route path='/' element={<RootLayout />}>
+        <Route index element={<Home/>} />
+        <Route path='category' element={<Category />} />
+        <Route path='brands' element={<Brands />} />
+        <Route path='trending' element={<Trending/>} />
+        <Route path='product' element={<Product/>} />
+    </Route>
+  )
+)
 
 function App() {
 
   return (
-    <>
-      <BrowserRouter>
-      <Header />
-      <Routes>
-        <Route path='/' element={<Home/>} />
-        <Route path='/' element={<Category />} />
-        <Route path='/' element={<Brands />} />
-        <Route path='/' element={<Trending/>} />
-        <Route path='/' element={<Product/>} />
-      </Routes>
-      <Footer/>
-      </BrowserRouter>
-    </>
+    <RouterProvider router={router} />
   )
 }
 
