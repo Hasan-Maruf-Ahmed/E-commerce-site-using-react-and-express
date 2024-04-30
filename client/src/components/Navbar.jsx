@@ -1,10 +1,20 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import logo from "../assets/Logo.svg";
 import { DropdownProfile } from "./DropdownProfile";
 import { useState } from "react";
 
 export const Navbar = () => {
+  const navigate = useNavigate();
+  const user = true;
   const [openProfile, setOpenProfile] = useState(false);
+  const handleClick = () => {
+    if (user) {
+      navigate("/login");
+    }
+    else {
+      setOpenProfile((prev)=> !prev);
+    }
+  }
   return (
     <nav className="mx-20 my-1 flex justify-between items-center">
       <NavLink to="/">
@@ -32,7 +42,7 @@ export const Navbar = () => {
       </form>
       <i className="bx bx-heart"></i>
       <i className="bx bx-cart"></i>
-      <i className="bx bx-user" onClick={()=>{setOpenProfile((prev)=> !prev)}}></i>
+      <i className="bx bx-user" onClick={handleClick}></i>
       { openProfile && <DropdownProfile />}
     </nav>
   );
