@@ -10,6 +10,10 @@
   /* border: 1px solid red; */
 }
 
+body{
+  background: #f1f1f1
+}
+
 .dropDownProfile {
   position: absolute;
   top: 4.5rem;
