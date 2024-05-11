@@ -12,6 +12,7 @@ import { Brands } from "./pages/Brands";
 import { Trending } from "./pages/Trending";
 import { Product } from "./pages/Product";
 import { Login } from "./pages/Login";
+import { SignUp } from "./pages/SignUp";
 
 //* Layouts
 import { RootLayout } from "./layouts/RootLayout";
@@ -27,6 +28,7 @@ const router = createBrowserRouter(
         <Route path="product" element={<Product />} />
       </Route>
       <Route path="login" element={<Login />} />
+      <Route path="signup" element={<SignUp />} />
     </>
   )
 );
