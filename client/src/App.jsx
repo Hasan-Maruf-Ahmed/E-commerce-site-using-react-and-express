@@ -11,7 +11,7 @@ import { Category } from "./pages/Category";
 import { Brands } from "./pages/Brands";
 import { Trending } from "./pages/Trending";
 import { Product } from "./pages/Product";
-import { Login } from "./pages/Login";
+import { Login, loginAction } from "./pages/Login";
 import { SignUp } from "./pages/SignUp";
 
 //* Layouts
@@ -27,7 +27,7 @@ const router = createBrowserRouter(
         <Route path="trending" element={<Trending />} />
         <Route path="product" element={<Product />} />
       </Route>
-      <Route path="login" element={<Login />} />
+      <Route path="login" element={<Login />} action={loginAction}/>
       <Route path="signup" element={<SignUp />} />
     </>
   )

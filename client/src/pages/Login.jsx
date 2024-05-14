@@ -20,7 +20,7 @@ export const Login = () => {
           <p className="font-medium text-lg text-gray-500 mt-4">
             Please, enter your details.
           </p>
-          <Form className="mt-6 flex flex-col">
+          <Form className="mt-6 flex flex-col" method="post" action="/login">
             <label>
               <span className="text-lg font-medium">Email:</span>
               <input
@@ -54,7 +54,7 @@ export const Login = () => {
               <button className="active:scale-[.98] active:duration-75 hover:scale-[1.01] ease-in-out transition-all  py-2 rounded-full bg-orange-500 text-white text-lg font-bold">
                 Sign in
               </button>
-              <button className="flex items-center justify-center gap-2 active:scale-[.98] active:duration-75 hover:scale-[1.01] ease-in-out transition-all  py-2 rounded-full border-2 border-gray-100">
+              <button disabled className="flex items-center justify-center gap-2 active:scale-[.98] active:duration-75 hover:scale-[1.01] ease-in-out transition-all  py-2 rounded-full border-2 border-gray-100">
                 <img src={google} width={24} height={24}/>
                 Sign in with Google</button>
             </div>
@@ -71,3 +71,17 @@ export const Login = () => {
     </div>
   );
 };
+
+export const loginAction = async ({ request }) => {
+console.log(request);
+
+  const data = await request.formData();
+
+  const submission = {
+    email: data.get('email'),
+    password: data.get('password'),
+  }
+
+  console.log(submission);
+  return null;
+}
