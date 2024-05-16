@@ -73,7 +73,6 @@ export const Login = () => {
 };
 
 export const loginAction = async ({ request }) => {
-console.log(request);
 
   const data = await request.formData();
 

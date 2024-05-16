@@ -22,14 +22,14 @@ export const SignUp = () => {
           <p className="font-medium text-lg text-gray-500 mt-4">
             Please, enter your details.
           </p>
-          <Form className="mt-6 flex flex-col">
+          <Form className="mt-6 flex flex-col" method="post" action="/signup">
             <label>
               <span className="text-lg font-medium">Name:</span>
               <input
                 className="w-full border-2 border-gray-200 rounded-xl p-3 mt-1 bg-transparent focus:border-orange-500/50 focus:outline-none"
                 type="text"
                 name="name"
-                placeholder="Enter your email"
+                placeholder="Enter your name"
               />
             </label>
             <label>
@@ -38,7 +38,7 @@ export const SignUp = () => {
                 className="w-full border-2 border-gray-200 rounded-xl p-3 mt-1 bg-transparent focus:border-orange-500/50 focus:outline-none"
                 type="tel"
                 name="phone"
-                placeholder="Enter your email"
+                placeholder="Enter your phone-number"
               />
             </label>
             <label>
@@ -60,7 +60,7 @@ export const SignUp = () => {
               />
             </label>
             <button className="mt-6 active:scale-[.98] active:duration-75 hover:scale-[1.01] ease-in-out transition-all  py-2 rounded-full bg-orange-500 text-white text-lg font-bold">
-              Sign in
+              Sign up
             </button>
           </Form>
           <div className="mt-6 flex justify-center items-center">
@@ -74,3 +74,17 @@ export const SignUp = () => {
     </div>
   );
 };
+
+export const signupAction = async ({ request }) => {
+
+  const data = await request.formData();
+
+  const submission = {
+    name: data.get('name'),
+    phone: data.get('phone'),
+    email: data.get('email'),
+    password: data.get('password')
+  }
+  console.log(submission);
+  return null;
+}
