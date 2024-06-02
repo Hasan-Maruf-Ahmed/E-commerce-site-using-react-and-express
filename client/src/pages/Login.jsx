@@ -20,7 +20,7 @@ export const Login = () => {
           <p className="font-medium text-lg text-gray-500 mt-4">
             Please, enter your details.
           </p>
-          <Form className="mt-6 flex flex-col" method="post" action="/login">
+          <Form className="mt-6 flex flex-col" method="post">
             <label>
               <span className="text-lg font-medium">Email:</span>
               <input
@@ -60,7 +60,7 @@ export const Login = () => {
             </div>
           </Form>
           <div className="mt-6 flex justify-center items-center">
-            <p className="font-medium text-sm">Don't have an account?</p>
+            <p className="font-medium text-sm">Don not have an account?</p>
             <p className="font medium text-sm text-orange-500 ml-2"><NavLink to="/signup" >Sign up</NavLink></p>
           </div>
         </div>
@@ -72,15 +72,3 @@ export const Login = () => {
   );
 };
 
-export const loginAction = async ({ request }) => {
-
-  const data = await request.formData();
-
-  const submission = {
-    email: data.get('email'),
-    password: data.get('password'),
-  }
-
-  console.log(submission);
-  return null;
-}
