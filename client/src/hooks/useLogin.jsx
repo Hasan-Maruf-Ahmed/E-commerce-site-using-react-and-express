@@ -2,33 +2,28 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "../axios";
 
-export const useSignup = () => {
+export const useLogin = () => {
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
-  const signUp = async (requestData) => {
+  const login = async (requestData) => {
     setError(null);
     setIsLoading(true);
     try {
-      // console.log(requestData);
-      const response = await axios.post("/signup", requestData, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      const response = await axios.post("/login", requestData);
       const json = response.data;
       console.log(json);
+      localStorage.setItem("user", JSON.stringify(json));
       setIsLoading(false);
-      navigate("/login");
+      navigate("/");
     } catch (err) {
       setIsLoading(false);
       setError(err.response?.data?.message || err.message);
-      // console.error(err);
     }
   };
   const clearError = () => {
     setError(null);
   };
-  return { signUp, error, isLoading, clearError };
+  return { login, error, isLoading, clearError };
 };

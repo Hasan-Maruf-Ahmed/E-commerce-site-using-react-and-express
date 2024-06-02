@@ -13,18 +13,18 @@ export const SignUp = () => {
     e.preventDefault();
     const formData = new FormData(e.target);
     const submission = JSON.stringify({
-      name: formData.get('name'),
-      phone: formData.get('phone'),
-      email: formData.get('email'),
-      password: formData.get('password'),
+      name: formData.get("name"),
+      phone: formData.get("phone"),
+      email: formData.get("email"),
+      password: formData.get("password"),
     });
 
     await signUp(submission);
 
     setTimeout(() => {
       clearError();
-    }, 1500);
-  }
+    }, 3000);
+  };
 
   useEffect(() => {
     setKey(Date.now());
@@ -42,7 +42,11 @@ export const SignUp = () => {
           <p className="font-medium text-lg text-gray-500 mt-4">
             Please, enter your details.
           </p>
-          <Form className="mt-6 flex flex-col" method="post" onSubmit={handleSubmit}>
+          <Form
+            className="mt-6 flex flex-col"
+            method="post"
+            onSubmit={handleSubmit}
+          >
             <label>
               <span className="text-lg font-medium">Name:</span>
               <input
@@ -79,11 +83,18 @@ export const SignUp = () => {
                 placeholder="Enter your password"
               />
             </label>
-            <button className="mt-6 active:scale-[.98] active:duration-75 hover:scale-[1.01] ease-in-out transition-all  py-2 rounded-full bg-orange-500 text-white text-lg font-bold" disabled={isLoading}>
-              {isLoading ? "Loading..." : "Sign Up"}
+            <button
+              className="mt-6 active:scale-[.98] active:duration-75 hover:scale-[1.01] ease-in-out transition-all  py-2 rounded-full bg-orange-500 text-white text-lg font-bold"
+              disabled={isLoading}
+            >
+              {isLoading ? "Signing Up..." : "Sign Up"}
             </button>
           </Form>
-          {error && <p className="mt-4 text-red-600 bg-red-100 py-3 px-5 border-2 border-red-400 rounded-xl transition-opacity duration-500 opacity-100">{error}</p>}
+          {error && (
+            <p className="mt-4 text-red-600 bg-red-100 py-3 px-5 border-2 border-red-400 rounded-xl transition-opacity duration-500 opacity-100">
+              {error}
+            </p>
+          )}
           <div className="mt-6 flex justify-center items-center">
             <p className="font-medium text-sm">Already have an account?</p>
             <p className="font medium text-sm text-orange-500 ml-2">
