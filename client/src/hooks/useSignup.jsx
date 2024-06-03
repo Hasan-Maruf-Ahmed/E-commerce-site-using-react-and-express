@@ -12,11 +12,7 @@ export const useSignup = () => {
     setIsLoading(true);
     try {
       // console.log(requestData);
-      const response = await axios.post("/signup", requestData, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      const response = await axios.post("/signup", requestData);
       const json = response.data;
       console.log(json);
       setIsLoading(false);

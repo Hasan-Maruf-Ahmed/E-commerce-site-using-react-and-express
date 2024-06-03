@@ -12,12 +12,12 @@ export const SignUp = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
-    const submission = JSON.stringify({
+    const submission = {
       name: formData.get("name"),
       phone: formData.get("phone"),
       email: formData.get("email"),
       password: formData.get("password"),
-    });
+    };
 
     await signUp(submission);
 
