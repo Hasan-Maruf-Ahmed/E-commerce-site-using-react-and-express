@@ -2,13 +2,14 @@ import { NavLink, useNavigate } from "react-router-dom";
 import logo from "../assets/Logo.svg";
 import { DropdownProfile } from "./DropdownProfile";
 import { useState } from "react";
+import { useAuthContext } from "../hooks/useAuthContext";
 
 export const Navbar = () => {
   const navigate = useNavigate();
-  const user = true;
+  const { user } = useAuthContext();
   const [openProfile, setOpenProfile] = useState(false);
   const handleClick = () => {
-    if (user) {
+    if (!user) {
       navigate("/login");
     }
     else {
