@@ -12,10 +12,13 @@ import { Brands } from "./pages/Brands";
 import { Trending } from "./pages/Trending";
 import { Product } from "./pages/Product";
 import { Login } from "./pages/Login";
-import { SignUp} from "./pages/SignUp";
+import { SignUp } from "./pages/SignUp";
 
 //* Layouts
 import { RootLayout } from "./layouts/RootLayout";
+
+//* Context
+import { AuthContextProvider } from "./context/AuthContext";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -27,14 +30,18 @@ const router = createBrowserRouter(
         <Route path="trending" element={<Trending />} />
         <Route path="product" element={<Product />} />
       </Route>
-      <Route path="login" element={<Login />}/>
-      <Route path="signup" element={<SignUp />}/>
+      <Route path="login" element={<Login />} />
+      <Route path="signup" element={<SignUp />} />
     </>
   )
 );
 
 function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <AuthContextProvider>
+      <RouterProvider router={router} />
+    </AuthContextProvider>
+  );
 }
 
 export default App;
