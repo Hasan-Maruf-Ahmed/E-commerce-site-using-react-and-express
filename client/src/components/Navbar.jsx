@@ -17,16 +17,16 @@ export const Navbar = () => {
     }
   }
   return (
-    <nav className="mx-20 my-1 flex justify-between items-center">
-      <NavLink to="/">
-        <img src={logo} alt="" width={65} />
+    <nav className="mx-56 my-2 text-xl flex justify-between items-center">
+      <NavLink to="/" className="-mr-14">
+        <img src={logo} alt="" width={95} />
       </NavLink>
-      <i className='bx bx-menu'></i>
-      <ul className="flex gap-5">
-        <li>Categories</li>
-        <li>Brands</li>
-        <li>Trending</li>
-        <li>Product</li>
+      {/* <i className='bx bx-menu'></i> */}
+      <ul className="flex gap-5 w-2/5 justify-between">
+        <li className="hover:text-orange-500 hover:cursor-pointer">Categories</li>
+        <li className="hover:text-orange-500 hover:cursor-pointer">Brands</li>
+        <li className="hover:text-orange-500 hover:cursor-pointer">Trending</li>
+        <li className="hover:text-orange-500 hover:cursor-pointer">Product</li>
       </ul>
       <form action="">
         <div className="flex items-center relative text-orange-500/50 focus-within:text-orange-500">
@@ -41,9 +41,9 @@ export const Navbar = () => {
           />
         </div>
       </form>
-      <i className="bx bx-heart"></i>
-      <i className="bx bx-cart"></i>
-      <i className="bx bx-user" onClick={handleClick}></i>
+      <i className="bx bx-heart hover:text-orange-500 hover:cursor-pointer"></i>
+      <i className="bx bx-cart hover:text-orange-500 hover:cursor-pointer"></i>
+      <i className="bx bx-user hover:text-orange-500 hover:cursor-pointer" onClick={handleClick}></i>
       { openProfile && <DropdownProfile />}
     </nav>
   );
