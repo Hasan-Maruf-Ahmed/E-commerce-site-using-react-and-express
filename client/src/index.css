@@ -16,16 +16,32 @@ body{
 
 .dropDownProfile {
   position: absolute;
-  top: 4.5rem;
-  right: 3.5rem;
-  width: 90px;
-  padding: 10px;
-  border: 1px solid gray;
+  top: 6rem;
+  right: 11rem;
+  width: 130px;
+  /* padding: 11px; */
+  /* border: 1px solid gray; */
   border-radius: 8px;
   background-color: white;
+  /* overflow: visible; */
+  z-index: 50;
 }
 
-.dropDownProfile::before {
+.dropDownProfile.active {
+  opacity: 1;
+  visible: visible;
+  transform: translateY(0);
+  transition: 500ms ease;
+}
+
+.dropDownProfile.inactive {
+  opacity: 0;
+  visible: visible;
+  transform: translateY(-20px);
+  transition: 500ms ease;
+}
+
+/* .dropDownProfile::before {
   content: "";
   position: absolute;
   top: -0.5rem;
@@ -36,4 +52,4 @@ body{
   background-color: white;
   border-left: 1px solid gray;
   border-top: 1px solid gray;
-}
+} */

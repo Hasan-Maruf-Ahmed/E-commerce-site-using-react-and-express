@@ -1,7 +1,7 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import logo from "../assets/Logo.svg";
 import { DropdownProfile } from "./DropdownProfile";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useAuthContext } from "../hooks/useAuthContext";
 
 export const Navbar = () => {
@@ -16,6 +16,22 @@ export const Navbar = () => {
       setOpenProfile((prev)=> !prev);
     }
   }
+
+  let menuRef = useRef();
+
+  useEffect(() => {
+    let handler = (e) => {
+      if (!menuRef.current.contains(e.target)){
+        setOpenProfile(false);
+      }
+    }
+
+    document.addEventListener("mousedown", handler);
+
+    return() => {
+      document.removeEventListener("mousedown", handler);
+    }
+  })
   return (
     <nav className="mx-56 my-2 text-xl flex justify-between items-center">
       <NavLink to="/" className="-mr-14">
@@ -44,7 +60,7 @@ export const Navbar = () => {
       <i className="bx bx-heart hover:text-orange-500 hover:cursor-pointer"></i>
       <i className="bx bx-cart hover:text-orange-500 hover:cursor-pointer"></i>
       <i className="bx bx-user hover:text-orange-500 hover:cursor-pointer" onClick={handleClick}></i>
-      { openProfile && <DropdownProfile />}
+      <div className={`dropDownProfile ${openProfile ? 'active' : 'inactive'}`} ref={menuRef}><DropdownProfile setOpenProfile={setOpenProfile}/></div>
     </nav>
   );
 };
