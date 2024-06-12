@@ -2,6 +2,6 @@
 
 export const AddProducts = () => {
   return (
-    <div>AddProducts</div>
+    <div className="bg-yellow-300">AddProducts</div>
   )
 }

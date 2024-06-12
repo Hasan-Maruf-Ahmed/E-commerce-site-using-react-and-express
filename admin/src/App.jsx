@@ -1,4 +1,4 @@
-import { Route, RouterProvider, createBrowserRouter, createRoutesFromElements } from "react-router-dom"
+import { Navigate, Route, RouterProvider, createBrowserRouter, createRoutesFromElements } from "react-router-dom"
 
 
 //* Pages
@@ -11,7 +11,8 @@ import { AdminLayout } from "./layouts/AdminLayout";
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
-      <Route path='/' element={<AdminLayout />}>
+      <Route path='/' element={<Navigate to="/admin" />} />
+      <Route path="/admin" element={<AdminLayout />}>
         <Route path="addproducts" element={<AddProducts/>} />
         <Route path="productlist" element={<ProductList/>} />
       </Route>
