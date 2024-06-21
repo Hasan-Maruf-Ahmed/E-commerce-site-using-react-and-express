@@ -1,8 +1,10 @@
+import { useRef } from "react";
 import { Form } from "react-router-dom";
 
 import upload_area from "../assets/upload_area.svg";
 
 export const AddProducts = () => {
+  const formRef = useRef(null);
   const handleSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
@@ -13,10 +15,12 @@ export const AddProducts = () => {
     };
 
     console.log(submission);
+
+    formRef.current.reset();
   };
   return (
     <div className="m-12">
-      <Form className="space-y-4" method="post" onSubmit={handleSubmit}>
+      <Form className="space-y-4" method="post" onSubmit={handleSubmit} ref={formRef}>
         <label className="flex flex-col gap-4">
           <span className="text-lg font-bold">Product Name:</span>
           <input
@@ -35,7 +39,7 @@ export const AddProducts = () => {
             placeholder="Type here..."
           />
         </label>
-        {/* <label className="flex flex-col gap-4">
+        <label className="flex flex-col gap-4">
           <span className="text-lg font-bold">Product Name:</span>
           <input
             className="max-w-80 w-full border-2 border-gray-400 rounded-md py-3 px-4 bg-transparent focus:border-orange-500 focus:outline-none"
@@ -52,7 +56,7 @@ export const AddProducts = () => {
             name="Name"
             placeholder="Type here..."
           />
-        </label> */}
+        </label>
         <label className="mb-3 flex items-center gap-x-4 cursor-pointer">
           <span className="text-lg font-bold">Product Category:</span>
           <select
@@ -68,10 +72,10 @@ export const AddProducts = () => {
             <option value="Powerbanks">Powerbanks</option>
           </select>
         </label>
-        {/* <label htmlFor="file-input" className="cursor-pointer flex">
+        <label htmlFor="file-input" className="cursor-pointer flex">
           <img src={upload_area} alt="" className="w-28 rounded-sm inline-block"/>
         </label>
-        <input type="file" name="image" id="file-input" hidden className="max-w-80 w-full py-3 px-4"/> */}
+        <input type="file" name="image" id="file-input" className="pointer-events-none hidden"/>
         <button
           type="submit"
           className="bg-orange-500 py-3 px-4 rounded-full text-white font-bold"
