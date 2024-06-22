@@ -9,13 +9,15 @@ const app = express();
 
 const signupRoute = require("./routes/signup");
 const loginRoute = require("./routes/login");
+const uploadRoute = require("./routes/upload");
+const addProductsRoute = require("./routes/addProducts");
 
 const port = process.env.PORT || 8080;
 
-//Connect to database
+// Connect to database
 connection();
 
-// image storage engine
+// Image storage engine
 const storage = multer.diskStorage({
   destination: "./images",
   filename: (req, file, cb) => {
@@ -37,15 +39,17 @@ app.use(
   })
 );
 
+// Middleware to inject the port into the request object
+app.use((req, res, next) => {
+  req.port = port;
+  next();
+});
+
+// Serve static files from the 'images' directory
 app.use("/images", express.static(path.join(__dirname,"images")));
 
-app.use("/api/upload", upload.single("product_image"), (req, res) => {
-  res
-    .status(200)
-    .send({
-      image_url: `http://localhost:${port}/images/${req.file.filename}`,
-    });
-});
+app.use("/api/upload", upload.single("product_image"), uploadRoute);
+app.use("/api/addproducts", addProductsRoute);
 
 app.use("/api/signup", signupRoute);
 app.use("/api/login", loginRoute);

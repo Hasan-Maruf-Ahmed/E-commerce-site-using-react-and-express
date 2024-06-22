@@ -21,6 +21,10 @@ const productsSchema = new mongoose.Schema({
     maxlength: [5, "Product stock cannot exceed 5 characters"],
     default: 0,
   },
+  image: {
+    type: String,
+    required: [true, "Product image is required"]
+  },
   rating: {
     type: Number,
     default: 0,
