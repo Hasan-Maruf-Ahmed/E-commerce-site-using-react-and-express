@@ -1,11 +1,18 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { Form } from "react-router-dom";
+import axios from "../axios";
 
 import upload_area from "../assets/upload_area.svg";
 
 export const AddProducts = () => {
   const formRef = useRef(null);
-  const handleSubmit = (e) => {
+
+  const [image, setImage] = useState(null);
+  const imageHandler = (e) => {
+    setImage(e.target.files[0]);
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
     const submission = {
@@ -14,13 +21,36 @@ export const AddProducts = () => {
       category: formData.get("category"),
     };
 
-    console.log(submission);
+    let imageFormData = new FormData();
+    imageFormData.append("product_image", image);
+
+    try {
+      const response = await axios.post("/upload", imageFormData);
+      if (response.status === 200) {
+        submission.image = response.data.image_url;
+        try {
+          const serverResponse = await axios.post("/addproducts", submission);
+          console.log(serverResponse.data.message);
+        } catch(err) {
+          console.log(err);
+        }
+      }
+    } catch (err) {
+      console.log(err);
+    }
 
     formRef.current.reset();
+    setImage(null);
   };
+  
   return (
     <div className="m-12">
-      <Form className="space-y-4" method="post" onSubmit={handleSubmit} ref={formRef}>
+      <Form
+        className="space-y-4"
+        method="post"
+        onSubmit={handleSubmit}
+        ref={formRef}
+      >
         <label className="flex flex-col gap-4">
           <span className="text-lg font-bold">Product Name:</span>
           <input
@@ -40,7 +70,7 @@ export const AddProducts = () => {
           />
         </label>
         <label className="flex flex-col gap-4">
-          <span className="text-lg font-bold">Product Name:</span>
+          <span className="text-lg font-bold">Stock:</span>
           <input
             className="max-w-80 w-full border-2 border-gray-400 rounded-md py-3 px-4 bg-transparent focus:border-orange-500 focus:outline-none"
             type="number"
@@ -73,9 +103,19 @@ export const AddProducts = () => {
           </select>
         </label>
         <label htmlFor="file-input" className="cursor-pointer flex">
-          <img src={upload_area} alt="" className="w-28 rounded-sm inline-block"/>
+          <img
+            src={image ? URL.createObjectURL(image) : upload_area}
+            alt=""
+            className="w-28 rounded-sm inline-block"
+          />
         </label>
-        <input type="file" name="product_image" id="file-input" className="pointer-events-none hidden"/>
+        <input
+          onChange={imageHandler}
+          type="file"
+          name="product_image"
+          id="file-input"
+          className="pointer-events-none hidden"
+        />
         <button
           type="submit"
           className="bg-orange-500 py-3 px-4 rounded-full text-white font-bold"
