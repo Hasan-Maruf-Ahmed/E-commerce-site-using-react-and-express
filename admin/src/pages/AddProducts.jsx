@@ -43,12 +43,12 @@ export const AddProducts = () => {
           <span className="text-lg font-bold">Product Name:</span>
           <input
             className="max-w-80 w-full border-2 border-gray-400 rounded-md py-3 px-4 bg-transparent focus:border-orange-500 focus:outline-none"
-            type="text"
-            name="Name"
+            type="number"
+            name="stock"
             placeholder="Type here..."
           />
         </label>
-        <label className="flex flex-col gap-4">
+        {/* <label className="flex flex-col gap-4">
           <span className="text-lg font-bold">Product Name:</span>
           <input
             className="max-w-80 w-full border-2 border-gray-400 rounded-md py-3 px-4 bg-transparent focus:border-orange-500 focus:outline-none"
@@ -56,7 +56,7 @@ export const AddProducts = () => {
             name="Name"
             placeholder="Type here..."
           />
-        </label>
+        </label> */}
         <label className="mb-3 flex items-center gap-x-4 cursor-pointer">
           <span className="text-lg font-bold">Product Category:</span>
           <select
@@ -75,7 +75,7 @@ export const AddProducts = () => {
         <label htmlFor="file-input" className="cursor-pointer flex">
           <img src={upload_area} alt="" className="w-28 rounded-sm inline-block"/>
         </label>
-        <input type="file" name="image" id="file-input" className="pointer-events-none hidden"/>
+        <input type="file" name="product_image" id="file-input" className="pointer-events-none hidden"/>
         <button
           type="submit"
           className="bg-orange-500 py-3 px-4 rounded-full text-white font-bold"
