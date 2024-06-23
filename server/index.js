@@ -12,6 +12,7 @@ const loginRoute = require("./routes/login");
 const uploadRoute = require("./routes/upload");
 const addProductsRoute = require("./routes/addProducts");
 const getProductsRoute = require("./routes/getAllProducts");
+const deleteProductRoute = require("./routes/deleteProduct");
 
 const port = process.env.PORT || 8080;
 
@@ -52,6 +53,7 @@ app.use("/images", express.static(path.join(__dirname,"images")));
 app.use("/api/upload", upload.single("product_image"), uploadRoute);
 app.use("/api/addproducts", addProductsRoute);
 app.use("/api/getproducts", getProductsRoute);
+app.use("/api/deleteproduct", deleteProductRoute);
 
 app.use("/api/signup", signupRoute);
 app.use("/api/login", loginRoute);

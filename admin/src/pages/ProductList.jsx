@@ -16,6 +16,18 @@ export const ProductList = () => {
     }
   }
 
+  
+
+  const handleDelete = async (id) => {
+    try {
+      const deleteResponse = await axios.delete(`/deleteproduct/${id}`);
+      setProducts(products.filter(p => p._id !== id));
+      toast.success(deleteResponse.data.message);
+    } catch (err) {
+      toast.error(err.message);
+    }
+  }
+
   useEffect(()=> {
     fetchProducts();
   }, [])
@@ -49,7 +61,7 @@ export const ProductList = () => {
                 <td>{product.price}</td>
                 <td>{product.stock}</td>
                 <td>{product.rating}</td>
-                <td><i className='bx bx-trash text-2xl'></i></td>
+                <td><button onClick={() => {handleDelete(product._id)}}><i className='bx bx-trash text-2xl'></i></button></td>
               </tr>
             ))}
           </tbody>
