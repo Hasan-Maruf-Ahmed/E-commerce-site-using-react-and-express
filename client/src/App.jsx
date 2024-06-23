@@ -26,7 +26,15 @@ const router = createBrowserRouter(
     <>
       <Route path="/" element={<RootLayout />}>
         <Route index element={<Home />} />
-        <Route path="category" element={<Category />} />
+        <Route path="category">
+          <Route path="smartwatch" element={<Category category="Smart Watch"/>} />
+          <Route path="headphones" element={<Category category="Headphones"/>} />
+          <Route path="speakers" element={<Category category="Speakers"/>} />
+          <Route path="chargingaccessories" element={<Category category="Charging Accessories"/>} />
+          <Route path="security" element={<Category category="Security"/>} />
+          <Route path="powerbanks" element={<Category category="Powerbanks"/>} />
+          <Route path="monitor" element={<Category category="Monitor"/>} />
+        </Route>
         <Route path="brands" element={<Brands />} />
         <Route path="trending" element={<Trending />} />
         <Route path="product" element={<Product />} />

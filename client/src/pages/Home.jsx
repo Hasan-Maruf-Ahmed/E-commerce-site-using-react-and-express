@@ -4,7 +4,7 @@ export const Home = () => {
   
   return (
     <div>
-      <ProductSection />
+      <ProductSection category="Smart Watch"/>
     </div>
   );
 };

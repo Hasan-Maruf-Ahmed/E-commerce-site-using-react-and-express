@@ -14,6 +14,19 @@ body{
   background: #f1f1f1
 }
 
+.dropDownCategory{
+  position: absolute;
+  top: 6rem;
+  left: 20rem;
+  width: 190px;
+  /* padding: 11px; */
+  /* border: 1px solid gray; */
+  border-radius: 8px;
+  background-color: white;
+  /* overflow: visible; */
+  z-index: 50;
+}
+
 .dropDownProfile {
   position: absolute;
   top: 6rem;
@@ -35,6 +48,19 @@ body{
 }
 
 .dropDownProfile.inactive {
+  opacity: 0;
+  visible: visible;
+  transform: translateY(-20px);
+  transition: 500ms ease;
+}
+.dropDownCategory.active {
+  opacity: 1;
+  visible: visible;
+  transform: translateY(0);
+  transition: 500ms ease;
+}
+
+.dropDownCategory.inactive {
   opacity: 0;
   visible: visible;
   transform: translateY(-20px);

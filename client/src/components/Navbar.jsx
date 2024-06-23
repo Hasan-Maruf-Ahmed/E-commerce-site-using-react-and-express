@@ -1,6 +1,7 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import logo from "../assets/Logo.svg";
 import { DropdownProfile } from "./DropdownProfile";
+import { DropdownCategory } from "./DropdownCategory";
 import { useEffect, useRef, useState } from "react";
 import { useAuthContext } from "../hooks/useAuthContext";
 
@@ -8,6 +9,7 @@ export const Navbar = () => {
   const navigate = useNavigate();
   const { user } = useAuthContext();
   const [openProfile, setOpenProfile] = useState(false);
+  const [openCategory, setOpenCategory] = useState(false);
   const handleClick = () => {
     if (!user) {
       navigate("/login");
@@ -18,11 +20,29 @@ export const Navbar = () => {
   }
 
   let menuRef = useRef();
+  let categoryRef = useRef();
 
   useEffect(() => {
     let handler = (e) => {
       if (!menuRef.current.contains(e.target)){
         setOpenProfile(false);
+      }
+    }
+
+    document.addEventListener("mousedown", handler);
+
+    return() => {
+      document.removeEventListener("mousedown", handler);
+    }
+  })
+
+  const handleCategory = () => {
+    setOpenCategory((prev) => !prev)
+  }
+  useEffect(() => {
+    let handler = (e) => {
+      if (!categoryRef.current.contains(e.target)){
+        setOpenCategory(false);
       }
     }
 
@@ -39,7 +59,7 @@ export const Navbar = () => {
       </NavLink>
       {/* <i className='bx bx-menu'></i> */}
       <ul className="flex gap-5 w-2/5 justify-between">
-        <li className="hover:text-orange-500 hover:cursor-pointer">Categories</li>
+        <li className="hover:text-orange-500 hover:cursor-pointer" onClick={handleCategory}>Categories</li>
         <li className="hover:text-orange-500 hover:cursor-pointer">Brands</li>
         <li className="hover:text-orange-500 hover:cursor-pointer">Trending</li>
         <li className="hover:text-orange-500 hover:cursor-pointer">Product</li>
@@ -61,6 +81,7 @@ export const Navbar = () => {
       <i className="bx bx-cart hover:text-orange-500 hover:cursor-pointer"></i>
       <i className="bx bx-user hover:text-orange-500 hover:cursor-pointer" onClick={handleClick}></i>
       <div className={`dropDownProfile ${openProfile ? 'active' : 'inactive'}`} ref={menuRef}><DropdownProfile setOpenProfile={setOpenProfile}/></div>
+      <div className={`dropDownCategory ${openCategory ? 'active' : 'inactive'}`} ref={categoryRef}><DropdownCategory setOpenCategory={setOpenCategory}/></div>
     </nav>
   );
 };
