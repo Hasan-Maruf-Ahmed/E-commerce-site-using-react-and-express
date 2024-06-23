@@ -19,6 +19,7 @@ import { RootLayout } from "./layouts/RootLayout";
 
 //* Context
 import { AuthContextProvider } from "./context/AuthContext";
+import { ProductContextProvider } from "./context/ProductContext";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -39,7 +40,9 @@ const router = createBrowserRouter(
 function App() {
   return (
     <AuthContextProvider>
-      <RouterProvider router={router} />
+      <ProductContextProvider>
+        <RouterProvider router={router} />
+      </ProductContextProvider>
     </AuthContextProvider>
   );
 }

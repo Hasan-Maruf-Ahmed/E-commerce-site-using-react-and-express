@@ -1,7 +1,10 @@
+import { ProductSection } from "../components/ProductSection";
+
 export const Home = () => {
+  
   return (
     <div>
-      <h1 className="text-3xl font-bold underline">Home</h1>
+      <ProductSection />
     </div>
   );
 };
