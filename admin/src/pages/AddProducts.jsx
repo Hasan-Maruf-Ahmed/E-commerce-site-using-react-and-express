@@ -20,6 +20,7 @@ export const AddProducts = () => {
       name: formData.get("name"),
       price: formData.get("price"),
       category: formData.get("category"),
+      stock: formData.get("stock"),
     };
 
     let imageFormData = new FormData();
@@ -123,9 +124,9 @@ export const AddProducts = () => {
         />
         <button
           type="submit"
-          className="bg-orange-500 py-3 px-4 rounded-full text-white font-bold"
+          className="bg-orange-500 py-3 px-4 rounded-full text-white font-bold flex items-center"
         >
-          Add Product
+          <i className='bx bx-plus'></i>Add Product
         </button>
       </Form>
     </div>
