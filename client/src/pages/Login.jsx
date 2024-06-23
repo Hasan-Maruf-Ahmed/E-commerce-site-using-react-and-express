@@ -6,7 +6,7 @@ import { NavLink } from "react-router-dom";
 import { useLogin } from "../hooks/useLogin";
 
 export const Login = () => {
-  const { login, error, isLoading, clearError } = useLogin();
+  const { login, isLoading } = useLogin();
   const [key, setKey] = useState(Date.now());
 
   useEffect(() => {
@@ -23,9 +23,9 @@ export const Login = () => {
 
     await login(submission);
 
-    setTimeout(() => {
-      clearError();
-    }, 3000);
+    // setTimeout(() => {
+    //   clearError();
+    // }, 3000);
   };
   return (
     <div className="w-full h-screen flex">
@@ -87,11 +87,11 @@ export const Login = () => {
               </button>
             </div>
           </Form>
-          {error && (
+          {/* {error && (
             <p className="mt-4 text-red-600 bg-red-100 py-3 px-5 border-2 border-red-400 rounded-xl transition-opacity duration-500 opacity-100">
               {error}
             </p>
-          )}
+          )} */}
           <div className="mt-6 flex justify-center items-center">
             <p className="font-medium text-sm">Don not have an account?</p>
             <p className="font medium text-sm text-orange-500 ml-2">

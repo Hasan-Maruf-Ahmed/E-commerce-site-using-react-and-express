@@ -6,7 +6,7 @@ import { NavLink } from "react-router-dom";
 import { useSignup } from "../hooks/useSignup";
 
 export const SignUp = () => {
-  const { signUp, error, isLoading, clearError } = useSignup();
+  const { signUp, isLoading } = useSignup();
   const [key, setKey] = useState(Date.now());
 
   const handleSubmit = async (e) => {
@@ -21,9 +21,9 @@ export const SignUp = () => {
 
     await signUp(submission);
 
-    setTimeout(() => {
-      clearError();
-    }, 3000);
+    // setTimeout(() => {
+    //   clearError();
+    // }, 3000);
   };
 
   useEffect(() => {
@@ -90,11 +90,11 @@ export const SignUp = () => {
               {isLoading ? "Signing Up..." : "Sign Up"}
             </button>
           </Form>
-          {error && (
+          {/* {error && (
             <p className="mt-4 text-red-600 bg-red-100 py-3 px-5 border-2 border-red-400 rounded-xl transition-opacity duration-500 opacity-100">
               {error}
             </p>
-          )}
+          )} */}
           <div className="mt-6 flex justify-center items-center">
             <p className="font-medium text-sm">Already have an account?</p>
             <p className="font medium text-sm text-orange-500 ml-2">
