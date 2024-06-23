@@ -1,5 +1,6 @@
 import { NavLink, Outlet } from "react-router-dom";
 
+
 export const AdminLayout = () => {
   return (
     <div className="flex flex-col h-screen">

@@ -1,6 +1,7 @@
 import { useRef, useState } from "react";
 import { Form } from "react-router-dom";
 import axios from "../axios";
+import { toast } from 'react-toastify'
 
 import upload_area from "../assets/upload_area.svg";
 
@@ -31,18 +32,21 @@ export const AddProducts = () => {
         try {
           const serverResponse = await axios.post("/addproducts", submission);
           console.log(serverResponse.data.message);
+          toast.success(serverResponse.data.message);
         } catch(err) {
-          console.log(err);
+          console.log(err.message);
+          toast.error(err.message);
         }
       }
     } catch (err) {
-      console.log(err);
+      console.log(err.message);
+      toast.error(err.message);
     }
 
     formRef.current.reset();
     setImage(null);
   };
-  
+
   return (
     <div className="m-12">
       <Form
@@ -100,6 +104,7 @@ export const AddProducts = () => {
             <option value="Charging Accessories">Charging Accessories</option>
             <option value="Security">Security</option>
             <option value="Powerbanks">Powerbanks</option>
+            <option value="Powerbanks">Monitor</option>
           </select>
         </label>
         <label htmlFor="file-input" className="cursor-pointer flex">
