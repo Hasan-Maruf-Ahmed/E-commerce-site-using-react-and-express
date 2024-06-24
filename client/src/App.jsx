@@ -37,7 +37,7 @@ const router = createBrowserRouter(
         </Route>
         <Route path="brands" element={<Brands />} />
         <Route path="trending" element={<Trending />} />
-        <Route path="product" element={<Product />} />
+        <Route path="product/:id" element={<Product />} />
       </Route>
       <Route path="login" element={<Login />} />
       <Route path="signup" element={<SignUp />} />

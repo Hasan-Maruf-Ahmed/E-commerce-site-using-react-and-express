@@ -1,8 +1,9 @@
 import { useProductContext } from "../hooks/useProductContext";
+import { Link } from "react-router-dom";
 
 export const Category = ({category}) => {
   const { products } = useProductContext();
-  console.log(category);
+  // console.log(category);
 
   const filteredProducts = products.filter((product) => product.category === category);
   return (
@@ -23,9 +24,11 @@ export const Category = ({category}) => {
                   />
                 </div>
                 <div className="px-4 py-3">
-                  <p className="text-md font-bold block truncate capitalize">
+                <Link to={`/product/${product._id}`}>
+                  <p className="text-md font-bold block truncate capitalize hover:scale-105 duration-500">
                     {product.name}
                   </p>
+                </Link>
                   <div className="flex items-center">
                     <p className="text-md font-semibold my-3">
                       &#2547; {product.price}
