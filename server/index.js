@@ -13,6 +13,7 @@ const uploadRoute = require("./routes/upload");
 const addProductsRoute = require("./routes/addProducts");
 const getProductsRoute = require("./routes/getAllProducts");
 const deleteProductRoute = require("./routes/deleteProduct");
+const cartRoute = require("./routes/cart");
 
 const port = process.env.PORT || 8080;
 
@@ -54,6 +55,8 @@ app.use("/api/upload", upload.single("product_image"), uploadRoute);
 app.use("/api/addproducts", addProductsRoute);
 app.use("/api/getproducts", getProductsRoute);
 app.use("/api/deleteproduct", deleteProductRoute);
+
+app.use("/api/cart", cartRoute);
 
 app.use("/api/signup", signupRoute);
 app.use("/api/login", loginRoute);
