@@ -6,7 +6,7 @@ import {
   DialogTitle,
 } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { useCartContext } from "../hooks/useCartContext";
 import { formatPrice } from "../utils/formatePrice";
@@ -31,6 +31,9 @@ export const Cart = ({ open, setOpen }) => {
     }
     // console.log(productId, quantity);
   }
+  const subtotal = useMemo(() => {
+    return state.items.reduce((total, product) => total + product.productId.price*product.quantity, 0);
+  }, [state.items]);
 
   return (
     <Dialog className="relative z-10" open={open} onClose={setOpen}>
@@ -137,7 +140,7 @@ export const Cart = ({ open, setOpen }) => {
                 <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
                   <div className="flex justify-between text-base font-medium text-gray-900">
                     <p>Subtotal</p>
-                    <p>$262.00</p>
+                    <p>{formatPrice(subtotal)}</p>
                   </div>
                   <p className="mt-0.5 text-sm text-gray-500">
                     Shipping and taxes calculated at checkout.
@@ -145,7 +148,7 @@ export const Cart = ({ open, setOpen }) => {
                   <div className="mt-6">
                     <a
                       href="#"
-                      className="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
+                      className="flex items-center justify-center rounded-md border border-transparent bg-orange-500 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-orange-600"
                     >
                       Checkout
                     </a>
@@ -155,7 +158,7 @@ export const Cart = ({ open, setOpen }) => {
                       or{" "}
                       <button
                         type="button"
-                        className="font-medium text-indigo-600 hover:text-indigo-500"
+                        className="font-medium text-orange-500 hover:text-orange-600"
                         onClick={() => setOpen(false)}
                       >
                         Continue Shopping
