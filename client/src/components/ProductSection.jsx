@@ -9,6 +9,12 @@ export const ProductSection = ({ category }) => {
   const filteredProducts = products
     .filter((product) => product.category === category)
     .slice(0, 10);
+
+  // Render nothing if filteredProducts is empty
+  if (filteredProducts.length === 0) {
+    return null;
+  }
+  
   return (
     <div>
       <div className="w-4/5 mx-auto my-10 px-12 py-10 bg-gray-300/60 rounded-xl">
