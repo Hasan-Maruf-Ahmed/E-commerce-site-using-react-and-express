@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { NavLink, useNavigate } from "react-router-dom";
 import logo from "../assets/Logo.svg";
 import { DropdownProfile } from "./DropdownProfile";
@@ -52,7 +53,7 @@ export const Navbar = ({ setCartOpen }) => {
     };
   });
   return (
-    <nav className="mx-56 my-2 text-xl flex justify-between items-center">
+    <nav className="mx-56 mb-2 py-4 text-xl flex justify-between items-center">
       <NavLink to="/" className="-mr-14">
         <img src={logo} alt="" width={95} />
       </NavLink>

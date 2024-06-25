@@ -23,9 +23,7 @@ export const cartReducer = (state, action) => {
     case "REMOVE_ITEM":
       return {
         ...state,
-        items: state.items.filter(
-          (item) => item.productId._id !== action.payload
-        ),
+        items: state.items.filter((item) => item.productId !== action.payload),
       };
     default:
       return state;
@@ -46,11 +44,16 @@ export const CartContextProvider = ({ children }) => {
   };
 
   const addToCart = async (userId, productId, quantity) => {
-    const response = await axios.post(`/cart/addtocart/${userId}`, {
-      productId,
-      quantity,
-    });
-    addItem(response.data.cart.items);
+    try {
+      const response = await axios.post(`/cart/addtocart/${userId}`, {
+        productId,
+        quantity,
+      });
+      addItem(response.data.cart.items);
+      toast.success("Item added to cart");
+    } catch (err) {
+      toast.error(err.massage);
+    }
   };
 
   const removeFromCart = async (userId, productId) => {

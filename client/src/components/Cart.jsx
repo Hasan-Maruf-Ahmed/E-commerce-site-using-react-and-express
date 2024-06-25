@@ -1,22 +1,26 @@
 /* eslint-disable react/prop-types */
-import { Dialog, DialogBackdrop, DialogPanel, DialogTitle } from '@headlessui/react';
-import { XMarkIcon } from '@heroicons/react/24/outline';
+import {
+  Dialog,
+  DialogBackdrop,
+  DialogPanel,
+  DialogTitle,
+} from "@headlessui/react";
+import { XMarkIcon } from "@heroicons/react/24/outline";
 import { useEffect } from "react";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { useCartContext } from "../hooks/useCartContext";
-import { formatPrice } from '../utils/formatePrice';
+import { formatPrice } from "../utils/formatePrice";
 
 export const Cart = ({ open, setOpen }) => {
   const { state, fetchCart, removeFromCart } = useCartContext();
 
-
   const { user } = useAuthContext();
 
-   useEffect(() => {
+  useEffect(() => {
     if (user) {
-        fetchCart(user.userId);
-      }
-    }, [user, fetchCart]);
+      fetchCart(user.userId);
+    }
+  }, [user, fetchCart]);
 
   return (
     <Dialog className="relative z-10" open={open} onClose={setOpen}>
@@ -35,7 +39,9 @@ export const Cart = ({ open, setOpen }) => {
               <div className="flex h-full flex-col overflow-y-scroll bg-white shadow-xl">
                 <div className="flex-1 overflow-y-auto px-4 py-6 sm:px-6">
                   <div className="flex items-start justify-between">
-                    <DialogTitle className="text-lg font-medium text-gray-900">Shopping cart</DialogTitle>
+                    <DialogTitle className="text-lg font-medium text-gray-900">
+                      Shopping cart
+                    </DialogTitle>
                     <div className="ml-3 flex h-7 items-center">
                       <button
                         type="button"
@@ -51,39 +57,62 @@ export const Cart = ({ open, setOpen }) => {
 
                   <div className="mt-8">
                     <div className="flow-root">
-                      <ul role="list" className="-my-6 divide-y divide-gray-200">
-                        {state.items.map((product) => (
-                          <li key={product._id} className="flex py-6">
-                            <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
-                              <img
-                                src={product.productId.image}
-                                alt={product.productId.name}
-                                className="h-full w-full object-cover object-center"
-                              />
-                            </div>
-
-                            <div className="ml-4 flex flex-1 flex-col">
-                              <div>
-                                <div className="flex justify-between text-base font-medium text-gray-900">
-                                  <h3>
-                                    {product.productId.name}
-                                  </h3>
-                                  <p className="ml-4">{formatPrice(product.productId.price*product.quantity)}</p>
-                                </div>
-                                {/* <p className="mt-1 text-sm text-gray-500">{product.color}</p> */}
+                      <ul
+                        role="list"
+                        className="-my-6 divide-y divide-gray-200"
+                      >
+                        {state.items.map((product) => {
+                          const item = product.productId;
+                          if (!item) {
+                            return null; // Skip rendering if product is not defined
+                          }
+                          return (
+                            <li key={product._id} className="flex py-6">
+                              <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
+                                <img
+                                  src={product.productId.image}
+                                  alt={product.productId.name}
+                                  className="h-full w-full object-cover object-center"
+                                />
                               </div>
-                              <div className="flex flex-1 items-end justify-between text-sm">
-                                <p className="text-gray-500">Qty {product.quantity}</p>
 
-                                <div className="flex">
-                                  <button type="button" onClick={() => {removeFromCart(user.userId, product.productId._id)}} className="font-medium text-indigo-600 hover:text-indigo-500">
-                                    Remove
-                                  </button>
+                              <div className="ml-4 flex flex-1 flex-col">
+                                <div>
+                                  <div className="flex justify-between text-base font-medium text-gray-900">
+                                    <h3>{product.productId.name}</h3>
+                                    <p className="ml-4">
+                                      {formatPrice(
+                                        product.productId.price *
+                                          product.quantity
+                                      )}
+                                    </p>
+                                  </div>
+                                  {/* <p className="mt-1 text-sm text-gray-500">{product.color}</p> */}
+                                </div>
+                                <div className="flex flex-1 items-end justify-between text-sm">
+                                  <p className="text-gray-500">
+                                    Qty {product.quantity}
+                                  </p>
+
+                                  <div className="flex">
+                                    <button
+                                      type="button"
+                                      onClick={() => {
+                                        removeFromCart(
+                                          user.userId,
+                                          product.productId._id
+                                        );
+                                      }}
+                                      className="font-medium text-indigo-600 hover:text-indigo-500"
+                                    >
+                                      Remove
+                                    </button>
+                                  </div>
                                 </div>
                               </div>
-                            </div>
-                          </li>
-                        ))}
+                            </li>
+                          );
+                        })}
                       </ul>
                     </div>
                   </div>
@@ -94,7 +123,9 @@ export const Cart = ({ open, setOpen }) => {
                     <p>Subtotal</p>
                     <p>$262.00</p>
                   </div>
-                  <p className="mt-0.5 text-sm text-gray-500">Shipping and taxes calculated at checkout.</p>
+                  <p className="mt-0.5 text-sm text-gray-500">
+                    Shipping and taxes calculated at checkout.
+                  </p>
                   <div className="mt-6">
                     <a
                       href="#"
@@ -105,7 +136,7 @@ export const Cart = ({ open, setOpen }) => {
                   </div>
                   <div className="mt-6 flex justify-center text-center text-sm text-gray-500">
                     <p>
-                      or{' '}
+                      or{" "}
                       <button
                         type="button"
                         className="font-medium text-indigo-600 hover:text-indigo-500"
@@ -123,5 +154,5 @@ export const Cart = ({ open, setOpen }) => {
         </div>
       </div>
     </Dialog>
-  )
+  );
 };

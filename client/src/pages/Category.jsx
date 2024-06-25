@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useProductContext } from "../hooks/useProductContext";
 import { ProductCard } from "../components/ProductCard"
 
