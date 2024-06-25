@@ -1,12 +1,19 @@
 import { useProductContext } from "../hooks/useProductContext"
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { formatPrice } from "../utils/formatePrice";
+import { useCartContext } from "../hooks/useCartContext";
+import { useAuthContext } from "../hooks/useAuthContext";
+import { toast } from "react-toastify";
 
 export const Product = () => {
   const { products } = useProductContext();
+  const { addToCart } = useCartContext();
+  const { user } = useAuthContext();
   const { id } = useParams();
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [quantity, setQuantity] = useState(1)
   useEffect(() => {
     const foundProduct = products.find((e) => e._id === id);
     if (foundProduct) {
@@ -22,7 +29,20 @@ export const Product = () => {
   if (!product) {
     return <div>Product not found</div>;
   }
-  console.log(product);
+  const handleMinusQuantity = () => {
+    setQuantity(quantity-1 < 1 ? 1 : quantity - 1);
+  }
+  const handlePlusQuantity = () => {
+    setQuantity(quantity+1);
+  }
+  const handleAddToCart = () => {
+    if(user){
+      addToCart(user.userId, id, quantity)
+    }
+    else {
+      toast.error("User not logged in");
+    }
+  }
   return (
     <div className="mx-16 my-8 py-8 px-10 bg-white shadow-lg">
       <div className="flex justify-center items-center gap-12">
@@ -31,7 +51,7 @@ export const Product = () => {
         </div>
         <div className="flex flex-col">
           <span className="font-bold text-2xl">{product.name}</span>
-          <span className="text-orange-600 font-bold">&#2547; {product.price}</span>
+          <span className="text-orange-600 font-bold">{formatPrice(product.price)}</span>
           <div className="flex flex-row gap-8 text-lg">
             <div>
             <i className='bx bxs-star text-yellow-500'></i>
@@ -53,7 +73,12 @@ export const Product = () => {
             </ul>
           </div>
           <div className="flex flex-row gap-5 mt-5">
-            <button className="bg-yellow-500 py-3 px-5 rounded-lg">Add to cart</button>
+            <div className="flex gap-2 justify-center items-center">
+              <button className="bg-gray-100 h-full w-12 font-bold text-xl flex justify-center items-center rounded-xl" onClick={handleMinusQuantity}>-</button>
+              <span className="bg-gray-100 h-full w-12 font-bold text-xl flex justify-center items-center rounded-xl">{quantity}</span>
+              <button className="bg-gray-100 h-full w-12 font-bold text-xl flex justify-center items-center rounded-xl" onClick={handlePlusQuantity}>+</button>
+            </div>
+            <button className="bg-yellow-500 py-3 px-5 rounded-lg" onClick={handleAddToCart}>Add to cart</button>
             <button className="bg-orange-600 py-3 px-5 rounded-lg">Buy Now</button>
           </div>
         </div>

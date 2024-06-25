@@ -3,6 +3,7 @@ import { formatPrice } from "../utils/formatePrice";
 import { Link } from "react-router-dom";
 import { useCartContext } from "../hooks/useCartContext"
 import { useAuthContext } from "../hooks/useAuthContext"
+import { toast } from "react-toastify"
 
 export const ProductCard = ({ data }) => {
     const { addToCart } = useCartContext();
@@ -13,7 +14,7 @@ export const ProductCard = ({ data }) => {
             addToCart(user.userId, data._id, 1);
           } else {
             // Handle the case when the user is not logged in, e.g., show a notification
-            console.log("User not logged in");
+            toast.error("User not logged in");
           }
     }
   return (
