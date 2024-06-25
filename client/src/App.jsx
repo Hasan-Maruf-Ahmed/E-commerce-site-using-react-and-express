@@ -20,6 +20,7 @@ import { RootLayout } from "./layouts/RootLayout";
 //* Context
 import { AuthContextProvider } from "./context/AuthContext";
 import { ProductContextProvider } from "./context/ProductContext";
+import { CartContextProvider } from "./context/CartContext";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -49,7 +50,9 @@ function App() {
   return (
     <AuthContextProvider>
       <ProductContextProvider>
+        <CartContextProvider>
         <RouterProvider router={router} />
+        </CartContextProvider>
       </ProductContextProvider>
     </AuthContextProvider>
   );

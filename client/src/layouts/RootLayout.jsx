@@ -3,7 +3,12 @@ import { Navbar } from "../components/Navbar";
 import { Footer } from "../components/Footer";
 import { Outlet } from "react-router-dom";
 
+import { Cart } from "../components/Cart";
+import { useState } from "react";
+
+
 export const RootLayout = () => {
+  const [open, setOpen] = useState(false);
   return (
     <div>
       <header className="bg-white shadow-lg">
@@ -12,11 +17,18 @@ export const RootLayout = () => {
             <div className="text-gray-500"><span>Call<span className="text-sky-500">+8801864180162</span></span></div>
         </div>
         <hr />
-        <Navbar />
+        <Navbar setCartOpen={setOpen}/>
         <hr />
       </header>
-      <Outlet />
-      <Footer />
+      <div>
+        <div>
+        <Outlet />
+        <Footer />
+        </div>
+        <div>
+          <Cart open={open} setOpen={setOpen}/>
+        </div>
+      </div>
     </div>
   );
 };

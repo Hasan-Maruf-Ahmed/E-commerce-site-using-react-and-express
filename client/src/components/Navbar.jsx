@@ -5,7 +5,7 @@ import { DropdownCategory } from "./DropdownCategory";
 import { useEffect, useRef, useState } from "react";
 import { useAuthContext } from "../hooks/useAuthContext";
 
-export const Navbar = () => {
+export const Navbar = ({setCartOpen}) => {
   const navigate = useNavigate();
   const { user } = useAuthContext();
   const [openProfile, setOpenProfile] = useState(false);
@@ -78,7 +78,7 @@ export const Navbar = () => {
         </div>
       </form>
       <i className="bx bx-heart hover:text-orange-500 hover:cursor-pointer"></i>
-      <i className="bx bx-cart hover:text-orange-500 hover:cursor-pointer"></i>
+      <i className="bx bx-cart hover:text-orange-500 hover:cursor-pointer" onClick={() => setCartOpen(true)}></i>
       <i className="bx bx-user hover:text-orange-500 hover:cursor-pointer" onClick={handleClick}></i>
       <div className={`dropDownProfile ${openProfile ? 'active' : 'inactive'}`} ref={menuRef}><DropdownProfile setOpenProfile={setOpenProfile}/></div>
       <div className={`dropDownCategory ${openCategory ? 'active' : 'inactive'}`} ref={categoryRef}><DropdownCategory setOpenCategory={setOpenCategory}/></div>

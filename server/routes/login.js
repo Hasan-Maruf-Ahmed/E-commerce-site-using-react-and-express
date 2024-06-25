@@ -32,6 +32,7 @@ router.post("/", async (req, res) => {
         token: token,
         name: user.name,
         email: user.email,
+        userId: user._id,
       });
   } catch (err) {
     res.status(500).send({ message: "Internal Server Error" });
