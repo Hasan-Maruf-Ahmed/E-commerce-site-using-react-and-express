@@ -5,10 +5,13 @@ import { DropdownProfile } from "./DropdownProfile";
 import { DropdownCategory } from "./DropdownCategory";
 import { useEffect, useRef, useState } from "react";
 import { useAuthContext } from "../hooks/useAuthContext";
+import { useCartContext } from "../hooks/useCartContext";
 
 export const Navbar = ({ setCartOpen }) => {
   const navigate = useNavigate();
   const { user } = useAuthContext();
+  const { getTotalItems } = useCartContext();
+  const totalItem = getTotalItems();
   const [openProfile, setOpenProfile] = useState(false);
   const [openCategory, setOpenCategory] = useState(false);
   const handleClick = () => {
@@ -88,7 +91,7 @@ export const Navbar = ({ setCartOpen }) => {
           className="bx bx-cart hover:text-orange-500 hover:cursor-pointer"
           onClick={() => setCartOpen(true)}
         ></i>
-        <span className="absolute top-2/3 right-1/2 bg-red-500 text-white text-sm w-5 h-5 rounded-full flex justify-center items-center">0</span>
+        <span className="absolute top-2/3 right-1/2 bg-red-500 text-white text-sm w-5 h-5 rounded-full flex justify-center items-center">{totalItem}</span>
       </div>
       <i
         className="bx bx-user hover:text-orange-500 hover:cursor-pointer"

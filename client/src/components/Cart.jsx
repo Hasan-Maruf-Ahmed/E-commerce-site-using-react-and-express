@@ -10,9 +10,10 @@ import { useEffect } from "react";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { useCartContext } from "../hooks/useCartContext";
 import { formatPrice } from "../utils/formatePrice";
+import { Link } from "react-router-dom";
 
 export const Cart = ({ open, setOpen }) => {
-  const { state, fetchCart, removeFromCart } = useCartContext();
+  const { state, fetchCart, removeFromCart, updateQuantity } = useCartContext();
 
   const { user } = useAuthContext();
 
@@ -21,6 +22,15 @@ export const Cart = ({ open, setOpen }) => {
       fetchCart(user.userId);
     }
   }, [user, fetchCart]);
+
+  const handleQuantityChange = (productId, quantity) => {
+    if (quantity <= 0) {
+      removeFromCart(user.userId, productId);
+    } else {
+      updateQuantity(user.userId, productId, quantity);
+    }
+    // console.log(productId, quantity);
+  }
 
   return (
     <Dialog className="relative z-10" open={open} onClose={setOpen}>
@@ -79,7 +89,7 @@ export const Cart = ({ open, setOpen }) => {
                               <div className="ml-4 flex flex-1 flex-col">
                                 <div>
                                   <div className="flex justify-between text-base font-medium text-gray-900">
-                                    <h3>{product.productId.name}</h3>
+                                    <Link to={`/product/${product.productId._id}`} onClick={() => setOpen(false)}><h3>{product.productId.name}</h3></Link> 
                                     <p className="ml-4">
                                       {formatPrice(
                                         product.productId.price *
@@ -90,9 +100,15 @@ export const Cart = ({ open, setOpen }) => {
                                   {/* <p className="mt-1 text-sm text-gray-500">{product.color}</p> */}
                                 </div>
                                 <div className="flex flex-1 items-end justify-between text-sm">
-                                  <p className="text-gray-500">
-                                    Qty {product.quantity}
-                                  </p>
+                                  <div className="flex justify-center items-center">
+                                    <button className="bg-gray-200 h-full w-6 font-bold flex justify-center items-center rounded-md" onClick={() => 
+                                      handleQuantityChange(product.productId._id, product.quantity - 1)
+                                    }>-</button>
+                                    <span className="h-full w-8 flex justify-center items-center rounded-md">{product.quantity}</span> 
+                                    <button className="bg-gray-200 h-full w-6 font-bold flex justify-center items-center rounded-md" onClick={() => 
+                                      handleQuantityChange(product.productId._id, product.quantity + 1)
+                                    }>+</button>       
+                                  </div>
 
                                   <div className="flex">
                                     <button

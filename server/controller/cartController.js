@@ -58,4 +58,35 @@ const removeFromCart = async (req, res) => {
   }
 };
 
-module.exports = { getCart, addToCart, removeFromCart };
+const updateQuantity = async (req, res) => {
+  try {
+    const { productId, quantity } = req.body;
+    const cart = await Cart.findOne({ userId: req.params.userId });
+
+    if (!cart) {
+      return res.status(404).send("Cart not found");
+    }
+
+    const item = cart.items.find(item => item.productId.toString() === productId);
+
+    if (!item) {
+      return res.status(404).send({ message: "Item not found in Cart" });
+    }
+
+    // Validate quantity, assuming it's a positive integer
+    if (typeof quantity !== 'number' || quantity <= 0) {
+      return res.status(400).send({ message: "Invalid quantity" });
+    }
+
+    item.quantity = quantity;
+    await cart.save();
+
+    return res.status(200).send({ cart, message: "Quantity updated" });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).send({ message: "Internal Server Error", error: err.message });
+  }
+};
+
+
+module.exports = { getCart, addToCart, removeFromCart, updateQuantity };

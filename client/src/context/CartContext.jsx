@@ -25,6 +25,11 @@ export const cartReducer = (state, action) => {
         ...state,
         items: state.items.filter((item) => item.productId !== action.payload),
       };
+    case "UPDATE_QUANTITY":
+      return {
+        ...state,
+        items: state.items.map((item) => item.productId === action.payload.productId ? { ...item, quantity: action.payload.quantity } : item),
+      }
     default:
       return state;
   }
@@ -37,6 +42,17 @@ export const CartContextProvider = ({ children }) => {
   const addItem = (item) => dispatch({ type: "ADD_ITEM", payload: item });
   const removeItem = (productId) =>
     dispatch({ type: "REMOVE_ITEM", payload: productId });
+  const updateQuantity = async (userId, productId, quantity) => {
+    try {
+      await axios.patch(`/cart/updateQuantity/${userId}`, {
+        productId,
+        quantity,
+      });
+      dispatch({ type: "UPDATE_QUANTITY", payload: { productId, quantity } });
+    } catch (err) {
+      toast.error(err.message);
+    }
+  };
 
   const fetchCart = async (userId) => {
     const response = await axios.get(`/cart/getcart/${userId}`);
@@ -66,9 +82,13 @@ export const CartContextProvider = ({ children }) => {
     }
   };
 
+  const getTotalItems = () => {
+    return state.items.reduce((total, item) => total + item.quantity, 0);
+  }
+
   return (
     <CartContext.Provider
-      value={{ state, fetchCart, addToCart, removeFromCart }}
+      value={{ state, fetchCart, addToCart, removeFromCart, getTotalItems, updateQuantity }}
     >
       {children}
     </CartContext.Provider>
