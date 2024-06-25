@@ -1,8 +1,10 @@
+/* eslint-disable react/prop-types */
 import { Dialog, DialogBackdrop, DialogPanel, DialogTitle } from '@headlessui/react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import { useEffect } from "react";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { useCartContext } from "../hooks/useCartContext";
+import { formatPrice } from '../utils/formatePrice';
 
 export const Cart = ({ open, setOpen }) => {
   const { state, fetchCart, removeFromCart } = useCartContext();
@@ -14,7 +16,7 @@ export const Cart = ({ open, setOpen }) => {
     if (user) {
         fetchCart(user.userId);
       }
-    }, [user]);
+    }, [user, fetchCart]);
 
   return (
     <Dialog className="relative z-10" open={open} onClose={setOpen}>
@@ -66,7 +68,7 @@ export const Cart = ({ open, setOpen }) => {
                                   <h3>
                                     {product.productId.name}
                                   </h3>
-                                  <p className="ml-4">&#2547;{product.productId.price*product.quantity}</p>
+                                  <p className="ml-4">{formatPrice(product.productId.price*product.quantity)}</p>
                                 </div>
                                 {/* <p className="mt-1 text-sm text-gray-500">{product.color}</p> */}
                               </div>
@@ -74,9 +76,7 @@ export const Cart = ({ open, setOpen }) => {
                                 <p className="text-gray-500">Qty {product.quantity}</p>
 
                                 <div className="flex">
-                                  <button type="button" onClick={() => {removeFromCart(user.userId, product.productId._id)
-                                    console.log(state.items)
-                                  }} className="font-medium text-indigo-600 hover:text-indigo-500">
+                                  <button type="button" onClick={() => {removeFromCart(user.userId, product.productId._id)}} className="font-medium text-indigo-600 hover:text-indigo-500">
                                     Remove
                                   </button>
                                 </div>

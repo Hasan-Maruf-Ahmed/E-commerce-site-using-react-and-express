@@ -1,5 +1,5 @@
 import { useProductContext } from "../hooks/useProductContext";
-import { Link } from "react-router-dom";
+import { ProductCard } from "../components/ProductCard"
 
 export const Category = ({category}) => {
   const { products } = useProductContext();
@@ -12,30 +12,7 @@ export const Category = ({category}) => {
         <h2 className="text-2xl font-bold text-gray-900">{category}</h2>
         <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 justify-items-center sm:grid-cols-2 lg:grid-cols-5 xl:gap-x-8">
           {filteredProducts.map((product) => (
-              <div
-                key={product._id}
-                className="bg-white w-52 shadow-md rounded-xl overflow-hidden hover:scale-105 duration-300"
-              >
-                <div>
-                  <img
-                    src={product.image}
-                    alt=""
-                    className="h-52 w-52 object-cover border-b"
-                  />
-                </div>
-                <div className="px-4 py-3">
-                <Link to={`/product/${product._id}`}>
-                  <p className="text-md font-bold block truncate capitalize hover:scale-105 duration-500">
-                    {product.name}
-                  </p>
-                </Link>
-                  <div className="flex items-center">
-                    <p className="text-md font-semibold my-3">
-                      &#2547; {product.price}
-                    </p>
-                  </div>
-                </div>
-              </div>
+              <ProductCard key={product._id} data={product}/>
             ))}
         </div>
       </div>
