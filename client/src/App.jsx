@@ -13,6 +13,7 @@ import { Trending } from "./pages/Trending";
 import { Product } from "./pages/Product";
 import { Login } from "./pages/Login";
 import { SignUp } from "./pages/SignUp";
+import { Checkout } from "./pages/Checkout";
 
 //* Layouts
 import { RootLayout } from "./layouts/RootLayout";
@@ -42,6 +43,7 @@ const router = createBrowserRouter(
       </Route>
       <Route path="login" element={<Login />} />
       <Route path="signup" element={<SignUp />} />
+      <Route path="checkout" element={<Checkout />} />
     </>
   )
 );

@@ -11,11 +11,14 @@ import { useAuthContext } from "../hooks/useAuthContext";
 import { useCartContext } from "../hooks/useCartContext";
 import { formatPrice } from "../utils/formatePrice";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export const Cart = ({ open, setOpen }) => {
   const { state, fetchCart, removeFromCart, updateQuantity } = useCartContext();
 
   const { user } = useAuthContext();
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (user) {
@@ -34,6 +37,14 @@ export const Cart = ({ open, setOpen }) => {
   const subtotal = useMemo(() => {
     return state.items.reduce((total, product) => total + product.productId.price*product.quantity, 0);
   }, [state.items]);
+
+  const handleCheckout = () => {
+    if(user){
+      navigate('/checkout');
+    } else {
+      navigate('/login');
+    }
+  }
 
   return (
     <Dialog className="relative z-10" open={open} onClose={setOpen}>
@@ -146,12 +157,12 @@ export const Cart = ({ open, setOpen }) => {
                     Shipping and taxes calculated at checkout.
                   </p>
                   <div className="mt-6">
-                    <a
-                      href="#"
+                    <div
+                      onClick={handleCheckout}
                       className="flex items-center justify-center rounded-md border border-transparent bg-orange-500 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-orange-600"
                     >
                       Checkout
-                    </a>
+                    </div>
                   </div>
                   <div className="mt-6 flex justify-center text-center text-sm text-gray-500">
                     <p>
