@@ -1,7 +1,8 @@
+/* eslint-disable react/prop-types */
 import { useProductContext } from "../hooks/useProductContext";
 import { useState } from "react";
 
-export const SearchBar = () => {
+export const SearchBar = ({ setResults }) => {
   const [input, setInput] = useState("");
   const [filteredProducts, setFilteredProducts] = useState([]);
   const { products } = useProductContext();
@@ -9,10 +10,12 @@ export const SearchBar = () => {
   const handleChange = (value) => {
     setInput(value);
 
-    const filtered = products.filter((product) =>
-      product.name.toLowerCase().includes(value.toLowerCase())
-    );
+    const filtered = products.filter((product) => {
+      return value && product && product.name.toLowerCase().includes(value.toLowerCase());
+    });
     setFilteredProducts(filtered);
+    setResults(filteredProducts);
+    console.log(filtered);
   };
   return (
     <div className="flex items-center w-full bg-white h-12 px-5 rounded-xl shadow-xl">
