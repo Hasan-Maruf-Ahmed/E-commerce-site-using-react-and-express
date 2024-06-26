@@ -31,7 +31,7 @@ export const SearchModal = ({ open, onClose }) => {
         <div className="w-full py-4 px-6 bg-white flex flex-col shadow-xl rounded-lg mt-4 max-h-48 overflow-auto">
             {results.length !== 0 &&
             (results.map((result, id) => {
-                return <div key={id} className="mb-4"><Link to={`/product/${results._id}`}>{result.name}</Link></div>
+                return <div key={id} className="mb-4"><Link to={`/product/${result._id}`} onClick={() => onClose(false)}>{result.name}</Link></div>
             }))
             }
         </div>
