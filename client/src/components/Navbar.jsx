@@ -58,7 +58,7 @@ export const Navbar = ({ setCartOpen }) => {
     };
   });
   return (
-    <nav className="mx-56 mb-2 py-4 text-xl flex justify-between items-center">
+    <nav className="mx-8 mb-2 py-4 text-xl flex justify-between items-center lg:mx-48">
       <NavLink to="/" className="-mr-14">
         <img src={logo} alt="" width={95} />
       </NavLink>

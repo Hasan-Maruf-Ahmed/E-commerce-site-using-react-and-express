@@ -35,7 +35,11 @@ export const Cart = ({ open, setOpen }) => {
     // console.log(productId, quantity);
   }
   const subtotal = useMemo(() => {
-    return state.items.reduce((total, product) => total + product.productId.price*product.quantity, 0);
+    return state.items.reduce((total, product) => {if (!product.productId) {
+      // console.error('ProductId is undefined for product:', product);
+      return total;
+    }
+    return total + product.productId.price * product.quantity;}, 0);
   }, [state.items]);
 
   const handleCheckout = () => {
