@@ -14,7 +14,7 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 export const Cart = ({ open, setOpen }) => {
-  const { state, fetchCart, removeFromCart, updateQuantity } = useCartContext();
+  const { state, fetchCart, removeFromCart, updateQuantity, clearCart } = useCartContext();
 
   const { user } = useAuthContext();
 
@@ -24,7 +24,10 @@ export const Cart = ({ open, setOpen }) => {
     if (user) {
       fetchCart(user.userId);
     }
-  }, [user, fetchCart]);
+    else {
+      clearCart();
+    }
+  }, [user]);
 
   const handleQuantityChange = (productId, quantity) => {
     if (quantity <= 0) {
@@ -34,6 +37,7 @@ export const Cart = ({ open, setOpen }) => {
     }
     // console.log(productId, quantity);
   };
+
   const subtotal = useMemo(() => {
     return state.items.reduce((total, product) => {
       if (!product.productId) {

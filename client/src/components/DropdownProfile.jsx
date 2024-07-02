@@ -1,13 +1,10 @@
 import { useLogout } from '../hooks/useLogout'
-import { useCartContext } from '../hooks/useCartContext';
 
 export const DropdownProfile = ({ setOpenProfile }) => {
   const { logout } = useLogout();
-  const { clearCart } = useCartContext();
 
   const handleLogout = () => {
     logout();
-    clearCart();
     setOpenProfile((prev)=> !prev);
   }
   return (
