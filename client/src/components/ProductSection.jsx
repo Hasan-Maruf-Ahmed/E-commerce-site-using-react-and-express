@@ -19,7 +19,7 @@ export const ProductSection = ({ category }) => {
     <div>
       <div className="w-4/5 mx-auto my-10 px-12 py-10 bg-gray-300/60 rounded-xl">
         <h2 className="text-2xl font-bold text-gray-900">{category}</h2>
-        <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 justify-items-center sm:grid-cols-2 lg:grid-cols-5 xl:gap-x-8">
+        <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 justify-items-center sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 xl:gap-x-8">
           {filteredProducts.map((product) => (
             <ProductCard key={product._id} data={product}/>
             // <div
