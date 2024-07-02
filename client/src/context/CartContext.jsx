@@ -29,7 +29,10 @@ export const cartReducer = (state, action) => {
       return {
         ...state,
         items: state.items.map((item) => item.productId === action.payload.productId ? { ...item, quantity: action.payload.quantity } : item),
-      }
+      };
+    case "CLEAR_CART":
+      console.log("CLEAR_CART action dispatched");
+      return { items:[] };
     default:
       return state;
   }
@@ -84,11 +87,16 @@ export const CartContextProvider = ({ children }) => {
 
   const getTotalItems = () => {
     return state.items.reduce((total, item) => total + item.quantity, 0);
+  };
+
+  const clearCart = () => {
+    console.log("working");
+    dispatch({ type: "CLEAR_CART" });
   }
 
   return (
     <CartContext.Provider
-      value={{ state, fetchCart, addToCart, removeFromCart, getTotalItems, updateQuantity }}
+      value={{ state, fetchCart, addToCart, removeFromCart, getTotalItems, updateQuantity, clearCart }}
     >
       {children}
     </CartContext.Provider>
