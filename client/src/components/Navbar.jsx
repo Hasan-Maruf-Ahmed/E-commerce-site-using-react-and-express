@@ -8,7 +8,7 @@ import { useAuthContext } from "../hooks/useAuthContext";
 import { useCartContext } from "../hooks/useCartContext";
 import { SearchModal } from "./SearchModal";
 
-export const Navbar = ({ setCartOpen }) => {
+export const Navbar = ({ setCartOpen, setFavOpen }) => {
   const navigate = useNavigate();
   const { user } = useAuthContext();
   const { getTotalItems } = useCartContext();
@@ -75,7 +75,7 @@ export const Navbar = ({ setCartOpen }) => {
         {/* <li className="hover:text-orange-500 hover:cursor-pointer">Product</li> */}
       </ul>
       <i className="bx bx-search hover:text-orange-500 hover:cursor-pointer" onClick={() => setIsOpen(true)}></i>
-      <i className="bx bx-heart hover:text-orange-500 hover:cursor-pointer"></i>
+      <i className="bx bx-heart hover:text-orange-500 hover:cursor-pointer" onClick={() => setFavOpen(true)}></i>
       <div className="relative">
         <i
           className="bx bx-cart hover:text-orange-500 hover:cursor-pointer"

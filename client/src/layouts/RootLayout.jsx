@@ -4,11 +4,13 @@ import { Footer } from "../components/Footer";
 import { Outlet } from "react-router-dom";
 
 import { Cart } from "../components/Cart";
+import { Favourites } from "../components/Favourites";
 import { useState } from "react";
 
 
 export const RootLayout = () => {
-  const [open, setOpen] = useState(false);
+  const [cartOpen, setCartOpen] = useState(false);
+  const [favOpen, setFavOpen] = useState(false);
   return (
     <div>
       <header className="bg-white shadow-lg">
@@ -17,7 +19,7 @@ export const RootLayout = () => {
             <div className="text-gray-500"><span>Call<span className="text-sky-500">+8801864180162</span></span></div>
         </div>
         <hr /> */}
-        <Navbar setCartOpen={setOpen}/>
+        <Navbar setCartOpen={setCartOpen} setFavOpen={setFavOpen}/>
         <hr />
       </header>
       <div>
@@ -26,7 +28,10 @@ export const RootLayout = () => {
         <Footer />
         </div>
         <div>
-          <Cart open={open} setOpen={setOpen}/>
+          <Cart open={cartOpen} setOpen={setCartOpen}/>
+        </div>
+        <div>
+          <Favourites open={favOpen} setOpen={setFavOpen}/>
         </div>
       </div>
     </div>
